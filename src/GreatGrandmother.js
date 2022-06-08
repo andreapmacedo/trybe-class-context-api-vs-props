@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Greatmother from './Grandmother'
+import MyContext from './MyContext';
 
 class GreatGrandfather extends Component {
   constructor(props) {
@@ -9,7 +10,6 @@ class GreatGrandfather extends Component {
       money: 1000000,
     }
     this.handleSpendMoney = this.handleSpendMoney.bind(this);
-    // this.spendInheritance = this.spendInheritance.bind(this);
   }
 
   handleSpendMoney(){
@@ -18,18 +18,18 @@ class GreatGrandfather extends Component {
     ));    
   }
 
-  // spendInheritance() {
-  //   this.setState((prevState) => (
-  //     { inheritance: prevState.inheritance - 1000 }
-  //   ));
-  // }
-
   render() {
+    const contextValue ={
+      money: this.state.money,
+      spendMoney: this.handleSpendMoney,
+    }
     return (
-      <div>
-        <h1>Eu sou a bisavó</h1>
-        <Greatmother money={ this.state.money}  handleSpendMoney={this.handleSpendMoney}/>
-      </div>
+      <MyContext.Provider value={contextValue}>
+        <div>
+          <h1>Eu sou a bisavó</h1>
+          <Greatmother money={ this.state.money}  handleSpendMoney={this.handleSpendMoney}/>
+        </div>
+      </MyContext.Provider>
     );
   }
 }
